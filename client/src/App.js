@@ -1,107 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-const baseUrl = "http://localhost:8080";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
 function App() {
-  const [todos, settodos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [newtodoName, setnewtodoName] = useState("");
-  const [formAlert, setFormAlert] = useState("");
-
-  useEffect(() => {
-    fetchtodos();
-  }, []);
-
-  // Load todos from ${baseUrl}/api/todos
-  const fetchtodos = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios.get(`${baseUrl}/api/v1/todos`);
-      settodos(data.todos);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  // delete todo ${baseUrl}/api/todos/:id
-  const deletetodo = async (id) => {
-    setIsLoading(true);
-    try {
-      await axios.delete(`${baseUrl}/api/v1/todos/${id}`);
-      settodos((prevtodos) => prevtodos.filter((todo) => todo._id !== id));
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  // handle form submit
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await axios.post(`${baseUrl}/api/v1/todos`, { name: newtodoName });
-      setnewtodoName("");
-      setFormAlert("todo added successfully.");
-      fetchtodos();
-    } catch (error) {
-      setFormAlert("An error occurred while adding the todo.");
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  // render todos
-  const rendertodos = () => {
-    if (isLoading) {
-      return <div className="loading-text">Loading todos...</div>;
-    }
-    if (todos.length < 1) {
-      return <div className="empty-list">No todos in your list</div>;
-    }
-    return todos.map((todo) => (
-      <div
-        key={todo._id}
-        className={`single-todo ${todo.completed && "todo-completed"}`}>
-        <h5>
-          <span>
-            <i className="far fa-check-circle"></i>
-          </span>
-          {todo.name}
-        </h5>
-        <div className="todo-links">
-          {/* edit link */}
-          <a href={`todo.html?id=${todo._id}`} className="edit-link">
-            <i className="fas fa-edit"></i>
-          </a>
-          {/* delete btn */}
-          <button
-            type="button"
-            className="delete-btn"
-            onClick={() => deletetodo(todo._id)}>
-            <i className="fas fa-trash"></i>
-          </button>
-        </div>
-      </div>
-    ));
-  };
-
   return (
-    <div className="todo-list">
-      <div className="todos">{rendertodos()}</div>
-      <form onSubmit={handleFormSubmit} className="todo-form">
-        <input
-          type="text"
-          className="todo-input"
-          placeholder="Enter todo name"
-          value={newtodoName}
-          onChange={(e) => setnewtodoName(e.target.value)}
-        />
-        <button type="submit">Add todo</button>
-      </form>
-      {formAlert && <div className="form-alert">{formAlert}</div>}
+    <div>
+      <h1>TODO APP WITH MERN</h1>
+      <TodoForm />
+      <TodoList />
+      <div>TASK LIST</div>
     </div>
   );
 }

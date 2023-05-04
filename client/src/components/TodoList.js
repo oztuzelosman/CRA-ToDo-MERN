@@ -1,11 +1,15 @@
 import TodoShow from "./TodoShow";
-function TodoList({ todoItems }) {
+function TodoList({ todoItems, deleteById, updateById }) {
   return (
     <div>
       {todoItems.map((todoItem) => {
         return (
-          <div key={todoItem}>
-            <TodoShow name={todoItem} />
+          <div key={todoItem.id}>
+            <TodoShow
+              todoItem={todoItem}
+              deleteById={deleteById}
+              updateById={updateById}
+            />
           </div>
         );
       })}

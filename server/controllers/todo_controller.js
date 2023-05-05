@@ -3,7 +3,7 @@ const todo_models = require("../models/todo_models");
 const getAll = async (req, res) => {
   try {
     const getAllTodos = await todo_models.find({});
-    res.status(200).json({ success: true, data: getAllTodos });
+    res.status(200).json(getAllTodos);
   } catch (err) {
     res.status(500).json({ msg: err });
   }
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 const createNew = async (req, res) => {
   try {
     const newTodo = await todo_models.create(req.body);
-    res.status(201).json({ success: true, data: newTodo });
+    res.status(201).json(newTodo);
   } catch (err) {
     res.status(500).json({ msg: err });
   }
@@ -25,7 +25,7 @@ const getTodoWid = async (req, res) => {
     if (!getTodoWid) {
       return res.status(404).json({ msg: "no task with this id" });
     }
-    res.status(200).json({ success: true, data: todoWid });
+    res.status(200).json(todoWid);
   } catch (err) {
     res.status(500).json({ msg: err });
   }
@@ -44,9 +44,9 @@ const updateTodoWid = async (req, res) => {
     if (!updTodoWid) {
       return res.status(404).json({ msg: "no task with this id" });
     }
-    res.status(200).json({ success: true, msg: "updated", data: updTodoWid });
+    res.status(200).json(updTodoWid);
   } catch (err) {
-    res.status(500).json({ msg: err });
+    res.status(500).json(err);
   }
 };
 
@@ -58,9 +58,9 @@ const deleteTodoWid = async (req, res) => {
     if (!delTodoWid) {
       return res.status(404).json({ msg: "no task with this id" });
     }
-    res.status(200).json({ success: true, data: delTodoWid });
+    res.status(200).json(delTodoWid);
   } catch (err) {
-    res.status(500).json({ msg: err });
+    res.status(500).json(err);
   }
 };
 

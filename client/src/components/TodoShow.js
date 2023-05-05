@@ -5,7 +5,7 @@ function TodoShow({ todoItem, deleteById, updateById }) {
   const [showEdit, setShowEdit] = useState(false);
 
   const handleDelete = () => {
-    deleteById(todoItem.id);
+    deleteById(todoItem._id);
   };
 
   const toggleEdit = () => {
@@ -24,7 +24,8 @@ function TodoShow({ todoItem, deleteById, updateById }) {
       ) : (
         <div>
           <h3> {todoItem.name}</h3>
-          <p>{todoItem.id}</p>
+          <p>{todoItem._id}</p>
+          <span>{`Completion state of the todo: ${todoItem.completed}`}</span>
         </div>
       )}
 

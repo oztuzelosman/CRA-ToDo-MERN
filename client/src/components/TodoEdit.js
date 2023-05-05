@@ -9,7 +9,7 @@ function TodoEdit({ updateById, todoItem, toggleEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateById(todoItem.id, newName);
+    updateById(todoItem._id, newName);
     setNewName("");
     toggleEdit();
   };

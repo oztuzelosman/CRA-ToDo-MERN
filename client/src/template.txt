@@ -9,10 +9,8 @@ function App() {
   const [newtodoName, setnewtodoName] = useState("");
   const [formAlert, setFormAlert] = useState("");
 
-  useEffect(() => {
-    fetchtodos();
-  }, []);
 
+/*
   // Load todos from ${baseUrl}/api/todos
   const fetchtodos = async () => {
     setIsLoading(true);
@@ -24,6 +22,8 @@ function App() {
     }
     setIsLoading(false);
   };
+*/
+
 
   // delete todo ${baseUrl}/api/todos/:id
   const deletetodo = async (id) => {

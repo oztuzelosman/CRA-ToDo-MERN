@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 
-const serverUrl = "http://localhost:8080/api/v1/todos";
+const serverUrl = "http://localhost:8080";
 
 function App() {
   //array that we use for listing todos
@@ -14,7 +14,7 @@ function App() {
   //getting all todos from server
 
   const fetchTodos = async () => {
-    const response = await axios.get(`${serverUrl}`);
+    const response = await axios.get(`${serverUrl}/api/v1/todos`);
     console.log(response);
     setTodoItems(response.data);
   };
@@ -24,37 +24,28 @@ function App() {
   }, []);
 
   //add new books
-  const addTodoList = async (todoInput) => {
-    const createResponse = await axios.post(`${serverUrl}`, {
-      name: todoInput,
-    });
-
+  const addTodoList = (todoInput) => {
     setTodoItems((prevItems) => {
-      return [...prevItems, createResponse.data];
+      return [...prevItems, { id: uuidv4(), name: todoInput }];
     });
   };
 
   //delete books
-  const deleteById = async (deleteId) => {
-    await axios.delete(`${serverUrl}/${deleteId}`);
-
+  const deleteById = (deleteId) => {
     setTodoItems(() => {
       return todoItems.filter((todoItem) => {
-        return todoItem._id !== deleteId;
+        console.log(todoItem.id);
+        return todoItem.id !== deleteId;
       });
     });
   };
 
   //update books by id
-  const updateById = async (updateId, newName) => {
-    const updateResponse = await axios.patch(`${serverUrl}/${updateId}`, {
-      name: newName,
-    });
-
+  const updateById = (updateId, newName) => {
     setTodoItems(() => {
       return todoItems.map((todoItem) => {
-        if (updateId === todoItem._id) {
-          return { ...todoItem, ...updateResponse.data };
+        if (updateId === todoItem.id) {
+          return { ...todoItem, name: newName };
         } else {
           return todoItem;
         }

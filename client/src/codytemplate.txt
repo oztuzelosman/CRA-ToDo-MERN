@@ -1,0 +1,30 @@
+import FetchTodos from "./api/FetchTodos";
+import { useEffect, useState } from "react";
+
+function App() {
+  const [todoItems, setTodoItems] = useState([]);
+
+  useEffect(() => {
+    FetchTodos()
+      //.then(setTodoItems)
+      .then((alltodos) => {
+        console.log(alltodos);
+      });
+  }, []);
+
+  return (
+    <div>
+      {todoItems.map((todoItem) => {
+        return (
+          <div key={todoItem._id}>
+            <h1>{todoItem.name}</h1>
+            <p>{`did you complete this todo? ==> ${todoItem.completed}`}</p>
+            <span>{todoItem._id}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default App;

@@ -4,7 +4,7 @@ function TodoList({ todoItems, deleteById, updateById }) {
     <div>
       {todoItems.map((todoItem) => {
         return (
-          <div key={todoItem.id}>
+          <div key={todoItem._id}>
             <TodoShow
               todoItem={todoItem}
               deleteById={deleteById}
